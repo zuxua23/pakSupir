@@ -28,7 +28,7 @@ class ScanQrActivity : AppCompatActivity() {
 
         val options = ScanOptions().apply {
             setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-            setPrompt("Arahkan kamera ke QR Code")
+            setPrompt("Point the camera at the QR Code")
             setCameraId(0)
             setBeepEnabled(true)
             setBarcodeImageEnabled(false)

@@ -8,12 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
-/**
- * LoginActivity
- * - FLAG_SECURE diset di onCreate untuk memblokir screenshot.
- * - Tombol MASUK hanya aktif jika nomor HP & PIN sudah terisi (6 digit).
- * - Tombol toggle untuk show/hide PIN.
- */
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var etPhone: TextInputEditText
@@ -25,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ====== BLOKIR SCREENSHOT ======
+        // block screenshoot
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE
@@ -33,9 +27,9 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        etPhone     = findViewById(R.id.etPhone)
-        etPin       = findViewById(R.id.etPin)
-        btnLogin    = findViewById(R.id.btnLogin)
+        etPhone = findViewById(R.id.etPhone)
+        etPin = findViewById(R.id.etPin)
+        btnLogin = findViewById(R.id.btnLogin)
         btnTogglePin = findViewById(R.id.btnTogglePin)
 
         // Toggle show/hide PIN
@@ -53,14 +47,14 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             val phone = etPhone.text?.toString()?.trim().orEmpty()
-            val pin   = etPin.text?.toString()?.trim().orEmpty()
+            val pin = etPin.text?.toString()?.trim().orEmpty()
 
             if (phone.length < 10) {
-                etPhone.error = "Nomor HP tidak valid"
+                etPhone.error = "phone number invalid"
                 return@setOnClickListener
             }
             if (pin.length != 6) {
-                etPin.error = "PIN harus 6 digit"
+                etPin.error = "PIN must be 6 digits"
                 return@setOnClickListener
             }
 

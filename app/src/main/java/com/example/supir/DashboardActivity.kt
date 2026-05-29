@@ -29,14 +29,6 @@ import com.google.android.material.button.MaterialButton
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 
-/**
- * DashboardActivity
- * - FLAG_SECURE aktif: tidak bisa di-screenshot.
- * - Tidak ada scroll: semua info penting (status, kecepatan, trip, QR) terlihat sekaligus.
- * - Mulai LocationForegroundService agar tetap kirim koordinat saat app ditutup.
- * - tvSpeed di-update dari FusedLocationProvider (kecepatan nyata, bukan demo).
- * - Google Maps dengan animasi marker Gojek-style (ValueAnimator LatLng).
- */
 class DashboardActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var tvSpeed: TextView
@@ -72,14 +64,14 @@ class DashboardActivity : AppCompatActivity(), OnMapReadyCallback {
             grants[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
             startLocationTracking()
         } else {
-            Toast.makeText(this, "Izin lokasi diperlukan untuk pelacakan", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Location permission is required for tracking", Toast.LENGTH_LONG).show()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ====== BLOKIR SCREENSHOT ======
+        // block screenshot
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE
@@ -87,7 +79,7 @@ class DashboardActivity : AppCompatActivity(), OnMapReadyCallback {
 
         setContentView(R.layout.activity_dashboard)
 
-        tvSpeed   = findViewById(R.id.tvSpeed)
+        tvSpeed = findViewById(R.id.tvSpeed)
         btnScanQR = findViewById(R.id.btnScanQR)
         btnLogout = findViewById(R.id.btnLogout)
 
@@ -96,7 +88,6 @@ class DashboardActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
-        // Start foreground service → persistent notification muncul
         LocationForegroundService.start(this)
 
         btnScanQR.setOnClickListener { launchQrScan() }
@@ -112,10 +103,6 @@ class DashboardActivity : AppCompatActivity(), OnMapReadyCallback {
         map.uiSettings.isMapToolbarEnabled = false
     }
 
-    /**
-     * Animasi marker Gojek-style: ValueAnimator menginterpolasi LatLng lama → baru
-     * dalam 1,5 detik dengan AccelerateDecelerateInterpolator untuk kesan mulus.
-     */
     private fun animateMarkerTo(newPos: LatLng) {
         val map = googleMap ?: return
         if (driverMarker == null || isFirstLocation) {
@@ -147,7 +134,7 @@ class DashboardActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun launchQrScan() {
         val options = ScanOptions().apply {
             setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-            setPrompt("Arahkan kamera ke QR Code")
+            setPrompt("Point the camera at the QR Code")
             setCameraId(0)
             setBeepEnabled(true)
             setBarcodeImageEnabled(false)
