@@ -15,6 +15,11 @@
     </style>
 
     <!-- ====== TYPOGRAPHY ====== -->
+    <style name="Text">
+        <item name="android:textColor">@color/ink</item>
+        <item name="android:textSize">@dimen/text_body</item>
+    </style>
+
     <style name="Text.H1">
         <item name="android:textSize">@dimen/text_h1</item>
         <item name="android:textStyle">bold</item>
