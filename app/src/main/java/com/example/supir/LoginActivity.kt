@@ -58,8 +58,15 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: panggil API auth di sini.
-            // Untuk demo, langsung lanjut.
+            // Data statis untuk testing
+            val validPhone = "08123456789"
+            val validPin   = "123456"
+
+            if (phone != validPhone || pin != validPin) {
+                etPin.error = "Nomor HP atau PIN salah"
+                return@setOnClickListener
+            }
+
             startActivity(Intent(this, DashboardActivity::class.java))
             finish()
         }
