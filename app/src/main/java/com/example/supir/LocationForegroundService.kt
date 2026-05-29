@@ -18,19 +18,20 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.firebase.database.FirebaseDatabase
 
 /**
  * LocationForegroundService
  *
  * Service ini WAJIB tetap berjalan walau aplikasi ditutup, karena tugas
- * utamanya: mengirim koordinat GPS ke server tiap 30–60 detik.
+ * utamanya: mengirim koordinat GPS ke Firebase Realtime Database tiap 30–60 detik.
  *
  * Karena foreground service, Android MEWAJIBKAN notifikasi permanen.
- * Desain notifikasi (lihat lock screen mockup):
+ * Desain notifikasi:
  *   - Title    : "Pelacakan Aktif"
  *   - Body     : "Sistem tetap mengirim koordinat di latar belakang. Jangan tutup paksa aplikasi."
  *   - Icon     : ic_supir_notif (versi monokrom dari logo)
- *   - Color    : @color/primary  (biru tegas, sehingga ikon di status bar berwarna)
+ *   - Color    : #0D47A1 (biru tegas)
  *   - Priority : LOW (tidak heads-up, tidak suara — supaya tidak mengganggu pengemudi)
  *   - Ongoing  : true  (tidak bisa di-swipe oleh user)
  *   - Action   : "BUKA APLIKASI" (tap notif → kembali ke Dashboard)
@@ -59,8 +60,24 @@ class LocationForegroundService : Service() {
 
             lastSent = loc
             lastSentAt = now
-            // TODO: kirim ke server (pakai WorkManager / OkHttp dengan retry)
-            //       updateNotification("Update terakhir: baru saja")
+
+            // ====== KIRIM KE FIREBASE REALTIME DATABASE ======
+            sendLocationToFirebase(loc, now)
+        }
+    }
+
+    private fun sendLocationToFirebase(loc: Location, now: Long) {
+        try {
+            val db = FirebaseDatabase.getInstance().reference
+            val data = mapOf(
+                "lat"   to loc.latitude,
+                "lng"   to loc.longitude,
+                "speed" to loc.speed,
+                "ts"    to now
+            )
+            db.child("drivers").child("driver_001").setValue(data)
+        } catch (e: Exception) {
+            // Gagal kirim — akan dicoba pada pembaruan lokasi berikutnya
         }
     }
 
@@ -137,7 +154,7 @@ class LocationForegroundService : Service() {
             .setContentText(getString(R.string.notif_body))
             .setStyle(NotificationCompat.BigTextStyle().bigText(getString(R.string.notif_body)))
             .setColor(0xFF0D47A1.toInt())                          // primary blue
-            .setColorized(true)                                    // bg notif diwarnai biru (di kebanyakan OEM)
+            .setColorized(true)                                    // bg notif diwarnai biru
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setOngoing(true)                                      // TIDAK BISA DI-SWIPE
@@ -167,22 +184,3 @@ class LocationForegroundService : Service() {
         }
     }
 }
-
-/* ============================================================
-   Tambahkan ke AndroidManifest.xml (di dalam <application>):
-
-   <service
-       android:name=".LocationForegroundService"
-       android:exported="false"
-       android:foregroundServiceType="location" />
-
-   Permissions (di luar <application>):
-
-   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-   <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
-   <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-   <uses-permission android:name="android.permission.INTERNET"/>
-   ============================================================ */
