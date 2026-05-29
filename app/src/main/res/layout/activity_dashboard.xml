@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    activity_dashboard.xml
-    Map full-bleed sebagai background, semua kartu mengambang.
-    Tidak perlu scroll. FLAG_SECURE diset di DashboardActivity.kt.
--->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +8,6 @@
     android:background="#E8EEF3"
     tools:context=".DashboardActivity">
 
-    <!-- ====== MAP (full-bleed background) - Google Maps SupportMapFragment ====== -->
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -24,11 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- ====== TOP ROW: Status pill + Tombol Keluar ====== -->
     <LinearLayout
         android:id="@+id/statusPill"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="@dimen/space_sm"
@@ -68,7 +61,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- ====== KARTU KECEPATAN (floating, top-left) ====== -->
     <androidx.cardview.widget.CardView
         android:id="@+id/speedCard"
         android:layout_width="wrap_content"
@@ -125,7 +117,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- ====== KARTU TRIP AKTIF (di atas tombol QR) ====== -->
     <androidx.cardview.widget.CardView
         android:id="@+id/tripCard"
         android:layout_width="0dp"
@@ -143,7 +134,6 @@
             android:orientation="vertical"
             android:padding="@dimen/space_md">
 
-            <!-- Header row -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -218,7 +208,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- ====== TOMBOL SCAN QR (full-width, dominan) ====== -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnScanQR"
         style="@style/Btn.Primary.Large"

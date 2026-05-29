@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ===== TYPOGRAPHY (besar, jelas untuk lansia) ===== -->
     <dimen name="text_caption">13sp</dimen>
     <dimen name="text_body">16sp</dimen>
-    <dimen name="text_label">18sp</dimen>           <!-- label form -->
-    <dimen name="text_input">22sp</dimen>           <!-- isi input -->
+    <dimen name="text_label">18sp</dimen>
+    <dimen name="text_input">22sp</dimen>
     <dimen name="text_title">24sp</dimen>
     <dimen name="text_h1">30sp</dimen>
-    <dimen name="text_button">22sp</dimen>          <!-- tombol utama -->
-    <dimen name="text_speed">96sp</dimen>           <!-- ANGKA KECEPATAN -->
+    <dimen name="text_button">22sp</dimen>
+    <dimen name="text_speed">96sp</dimen>
     <dimen name="text_speed_unit">18sp</dimen>
 
-    <!-- ===== TOUCH TARGETS (minimal 56dp, default 64dp) ===== -->
     <dimen name="touch_min">56dp</dimen>
     <dimen name="touch_default">64dp</dimen>
-    <dimen name="touch_large">72dp</dimen>          <!-- tombol MASUK / SCAN QR -->
+    <dimen name="touch_large">72dp</dimen>
     <dimen name="touch_xl">84dp</dimen>
 
-    <!-- ===== SPACING ===== -->
     <dimen name="space_xs">4dp</dimen>
     <dimen name="space_sm">8dp</dimen>
     <dimen name="space_md">16dp</dimen>
     <dimen name="space_lg">24dp</dimen>
     <dimen name="space_xl">32dp</dimen>
 
-    <!-- ===== RADIUS ===== -->
     <dimen name="radius_sm">8dp</dimen>
     <dimen name="radius_md">12dp</dimen>
     <dimen name="radius_lg">16dp</dimen>
     <dimen name="radius_pill">999dp</dimen>
 
-    <!-- ===== STROKES ===== -->
     <dimen name="stroke_thick">2.5dp</dimen>
     <dimen name="stroke_thin">1.5dp</dimen>
 </resources>
