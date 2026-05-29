@@ -13,15 +13,12 @@
     android:background="#E8EEF3"
     tools:context=".DashboardActivity">
 
-    <!-- ====== MAP (full-bleed background) ======
-         Ganti ke <com.google.android.gms.maps.MapView> atau
-         <org.maplibre.android.maps.MapView> kalau pakai map sungguhan.
-    -->
-    <FrameLayout
-        android:id="@+id/mapContainer"
+    <!-- ====== MAP (full-bleed background) - Google Maps SupportMapFragment ====== -->
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#E8EEF3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

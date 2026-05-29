@@ -31,6 +31,8 @@
         </activity>
         <!--  ===== Dashboard =====  -->
         <activity android:name=".DashboardActivity" android:exported="false" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <!--  ===== QR Scanner =====  -->
+        <activity android:name=".ScanQrActivity" android:exported="false" android:screenOrientation="portrait"/>
         <!--  ===== FOREGROUND SERVICE (Persistent Notification) =====  -->
         <service android:name=".LocationForegroundService" android:exported="false" android:foregroundServiceType="location"/>
         <!--  Google Maps API key (kalau pakai Google Maps)  -->
