@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Supir</string>
+
+    <!-- Login -->
+    <string name="welcome_title">Selamat Datang</string>
+    <string name="welcome_subtitle">Masuk untuk mulai bertugas</string>
+    <string name="label_phone">Nomor HP</string>
+    <string name="label_pin">PIN 6 Digit</string>
+    <string name="hint_phone">0812 3456 7890</string>
+    <string name="btn_login">MASUK</string>
+    <string name="link_forgot_pin">Lupa PIN?</string>
+    <string name="link_help">Butuh Bantuan?</string>
+    <string name="action_show">Lihat</string>
+    <string name="action_hide">Sembunyikan</string>
+
+    <!-- Dashboard -->
+    <string name="status_active">PELACAKAN AKTIF</string>
+    <string name="status_offline">Pelacakan Berhenti</string>
+    <string name="label_speed">KECEPATAN</string>
+    <string name="unit_speed">km/jam</string>
+    <string name="btn_scan_qr">SCAN QR</string>
+    <string name="btn_scan_qr_sub">Konfirmasi Pengantaran</string>
+    <string name="btn_logout">KELUAR</string>
+    <string name="trip_active">TRIP AKTIF</string>
+    <string name="trip_from">DARI</string>
+    <string name="trip_to">TUJUAN</string>
+    <string name="trip_running">BERJALAN</string>
+
+    <!-- Logout dialog -->
+    <string name="dialog_logout_title">Keluar dari aplikasi?</string>
+    <string name="dialog_logout_body">Pelacakan akan berhenti. Pastikan tugas Anda sudah selesai.</string>
+    <string name="dialog_cancel">BATAL</string>
+    <string name="dialog_logout_confirm">YA, KELUAR</string>
+
+    <!-- Foreground service / persistent notification -->
+    <string name="notif_channel_id">tracking_channel</string>
+    <string name="notif_channel_name">Pelacakan Driver</string>
+    <string name="notif_channel_desc">Notifikasi permanen ketika sistem mengirim koordinat di latar belakang.</string>
+    <string name="notif_title">Pelacakan Aktif</string>
+    <string name="notif_body">Sistem tetap mengirim koordinat di latar belakang. Jangan tutup paksa aplikasi.</string>
+    <string name="notif_action_open">BUKA APLIKASI</string>
+    <string name="notif_action_report">LAPOR MASALAH</string>
+</resources>

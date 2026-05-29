@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_dashboard.xml
+    Map full-bleed sebagai background, semua kartu mengambang.
+    Tidak perlu scroll. FLAG_SECURE diset di DashboardActivity.kt.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8EEF3"
+    tools:context=".DashboardActivity">
+
+    <!-- ====== MAP (full-bleed background) ======
+         Ganti ke <com.google.android.gms.maps.MapView> atau
+         <org.maplibre.android.maps.MapView> kalau pakai map sungguhan.
+    -->
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#E8EEF3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ====== TOP ROW: Status pill + Tombol Keluar ====== -->
+    <LinearLayout
+        android:id="@+id/statusPill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/space_sm"
+        android:paddingStart="@dimen/space_md"
+        android:paddingEnd="@dimen/space_md"
+        android:background="@drawable/bg_status_active"
+        android:elevation="4dp"
+        android:layout_margin="@dimen/space_md"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/bg_dot_white"
+            android:layout_marginEnd="@dimen/space_sm"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_active"
+            android:textColor="@color/on_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        style="@style/Btn.Outlined.Danger"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="@string/btn_logout"
+        android:layout_margin="@dimen/space_md"
+        app:icon="@drawable/ic_logout"
+        app:iconTint="@color/danger"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ====== KARTU KECEPATAN (floating, top-left) ====== -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/speedCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_md"
+        android:layout_marginTop="@dimen/space_sm"
+        app:cardCornerRadius="@dimen/radius_lg"
+        app:cardElevation="10dp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="@dimen/stroke_thick"
+        app:layout_constraintTop_toBottomOf="@id/statusPill"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_md"
+            android:paddingTop="@dimen/space_sm">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_speed"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="true">
+
+                <TextView
+                    android:id="@+id/tvSpeed"
+                    style="@style/Text.Speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="45"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_speed"
+                    android:textColor="@color/ink"
+                    android:textSize="@dimen/text_speed_unit"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/space_sm"
+                    android:layout_gravity="bottom"
+                    android:paddingBottom="6dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ====== KARTU TRIP AKTIF (di atas tombol QR) ====== -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tripCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_md"
+        app:cardCornerRadius="@dimen/radius_lg"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/btnScanQR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_md">
+
+            <!-- Header row -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="TRIP AKTIF · #TR-2840"
+                    android:textColor="@color/primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_chip_warning"
+                    android:paddingStart="@dimen/space_sm"
+                    android:paddingEnd="@dimen/space_sm"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/trip_running"
+                    android:textColor="@color/warning_ink"
+                    android:textSize="11sp"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_sm">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trip_from"
+                    android:textColor="@color/ink_muted"
+                    android:textSize="11sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gudang Pulogadung"
+                    android:textColor="@color/ink"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:text="@string/trip_to"
+                    android:textColor="@color/ink_muted"
+                    android:textSize="11sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pasar Induk Cibitung"
+                    android:textColor="@color/ink"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ====== TOMBOL SCAN QR (full-width, dominan) ====== -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnScanQR"
+        style="@style/Btn.Primary.Large"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/touch_xl"
+        android:layout_margin="@dimen/space_md"
+        android:text="@string/btn_scan_qr"
+        android:textSize="22sp"
+        app:icon="@drawable/ic_qr_scan"
+        app:iconSize="40dp"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/space_md"
+        app:iconTint="@color/on_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
